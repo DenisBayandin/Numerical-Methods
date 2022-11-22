@@ -1,4 +1,5 @@
 import math
+from scipy import integrate
 
 pi = math.pi
 
@@ -49,13 +50,17 @@ def func(a, b, f_x_i, C):
 #     print(f"Погрешность = {pogrestn}")
 
 
-# Первый интеграл
+# Решаем первый интеграл с помощью метода Гаусса
 a = 0
 b = 2
 x_i = X_i(a, b, T)
 f_x_i = F_X_i_no_sin(x_i)
 func(a, b, f_x_i, C)
-print("Результат интеграла без метода Гаусса = 72")
+# Находим интеграл начальной формулы
+init_formul = lambda x: 6 * (x**5) + 3 * (x**2)
+integ = integrate.quad(init_formul, 0, 2)
+print(f"Результат интеграла без метода Гаусса = {integ[0]}")
+# Погрешность
 # fault(a, b, 3)
 
 print("\n")
@@ -64,12 +69,16 @@ for i in range(1, 50):
 print("\n\n")
 
 
-# Второй интеграл
+# Решаем второй интеграл с помощью метода Гаусса
 a = 0
 b = pi
 x_i = X_i(a, b, T)
 f_x_i = F_X_i_yes_sin(x_i)
 func(a, b, f_x_i, C)
-print("Результат интеграла без метода Гаусса = 2")
+# Находим интеграл начальной формулы
+init_formul = lambda x: math.sin(x)
+integ = integrate.quad(init_formul, 0, pi)
+print(f"Результат интеграла без метода Гаусса = {integ[0]}")
+# Погрешность
 # fault(a, b, 3)
 
